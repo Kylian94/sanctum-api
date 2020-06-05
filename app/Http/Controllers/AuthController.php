@@ -24,12 +24,16 @@ class AuthController extends Controller
                 ]);
             }
             $user = User::all()->where('email', $request->email)->first();
+
+            $user->tokens()->where('tokenable_id', $user->id)->delete();
+
             if (!Hash::check($request->password, $user->password, [])) {
                 throw new \Exception('Error in Login');
             }
-
+            $tokenResult = $user->createToken('authToken')->plainTextToken;
             return response()->json([
                 'status_code' => 200,
+                'access_token' => $tokenResult,
                 'state' => 'connected',
                 'token_type' => 'Bearer',
             ]);
