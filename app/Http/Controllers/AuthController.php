@@ -49,7 +49,7 @@ class AuthController extends Controller
             $request->validate([
                 'name' => 'required',
                 'email' => 'email|required',
-                'password' => 'required'
+                'password' => 'required|min:8'
             ]);
             $user = User::all()->where('email', $request->email)->first();
             if ($user) {
