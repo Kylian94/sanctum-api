@@ -27,10 +27,9 @@ class AuthController extends Controller
             if (!Hash::check($request->password, $user->password, [])) {
                 throw new \Exception('Error in Login');
             }
-            //$tokenResult = $user->createToken('authToken')->plainTextToken;
+
             return response()->json([
                 'status_code' => 200,
-                //'access_token' => $tokenResult,
                 'state' => 'connected',
                 'token_type' => 'Bearer',
             ]);
@@ -56,7 +55,6 @@ class AuthController extends Controller
                 return response()->json([
                     'status_code' => 422,
                     'message' => 'Email already exists',
-
                 ]);
             }
             $user = new User;

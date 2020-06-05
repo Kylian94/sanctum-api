@@ -136,7 +136,7 @@ class NoteController extends Controller
             return response()->json([
                 'message' => 'note not found',
                 'status_code' => 404,
-                'error' => $error
+
             ]);
         }
     }
